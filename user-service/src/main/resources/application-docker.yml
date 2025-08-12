@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://pg_db:5432/krdb
+    username: ${DB_LOGIN}
+    password: ${DB_PASSWORD}
+
+app:
+  jwt:
+    secret: NDQ1ZjAzNjQtMzViZi00MDRjLTljZjQtNjNjYWIyZTU5ZDYw
+
+email:
+  recipient: ${MAIL_APP}
+  password: ${MAIL_PASSWORD_APP}

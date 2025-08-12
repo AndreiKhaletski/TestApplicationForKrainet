@@ -1,0 +1,42 @@
+name: internal
+
+services:
+ user-service:
+  build: user-service
+  image: user:1.1.2
+  environment:
+    SPRING_PROFILES_ACTIVE: docker
+    DB_LOGIN: admin_kr
+    DB_PASSWORD: 123456
+    MAIL_APP: ${MAIL_APP}
+    MAIL_PASSWORD_APP: ${MAIL_PASSWORD_APP}
+  networks:
+   - internal-network
+ pg_db:
+  build: postgresql
+  image: postgresql-internal:1.1.2
+  environment:
+   POSTGRES_USER: internal_admin
+   POSTGRES_PASSWORD: 123456
+  networks:
+   - internal-network
+ pgadmin:
+  build: pgadmin
+  image: pgadmin-internal:1.1.2
+  environment:
+   PGADMIN_DEFAULT_EMAIL: admin1@internal.com
+   PGADMIN_DEFAULT_PASSWORD: internal
+  ports:
+   - 85:80
+  networks:
+   - internal-network
+ proxy:
+  build: proxy
+  image: proxy-internal:1.1.2
+  ports:
+   - 80:80
+  networks:
+   - internal-network
+   
+networks:
+ internal-network:
